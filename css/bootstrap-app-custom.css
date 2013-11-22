@@ -1,0 +1,27 @@
+.top-block{
+	margin-top: 20px;
+}
+
+.sandbox {
+    background: url("images/bg-gradient.png") no-repeat scroll center top / 100% auto rgba(0, 0, 0, 0);
+    padding: 24px 0;
+    pointer-events: none;
+    position: relative;
+    z-index: 999;
+}
+
+#animateTest {
+    animation-delay: 0.2s;
+    animation-duration: 1s;
+    animation-fill-mode: both;
+    animation-timing-function: ease;
+    backface-visibility: hidden;
+    background: none repeat scroll 0 0 #112233;
+    border-radius: 5px 5px 5px 5px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin: 0 auto;
+    padding: 20px 10px;
+    text-align: center;
+    width: 260px;
+}
