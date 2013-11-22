@@ -1,109 +1,154 @@
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="shortcut icon" href="">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="shortcut icon" href="">
 
-    <title>Sin captcha</title>
+<title>Sin captcha</title>
 
-    <!-- Bootstrap core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet">
-    <link href="css/bootstrap-app-custom.css" rel="stylesheet">
-    <link href="css/animate.min.css" rel="stylesheet">
-    
-    <!-- Custom styles for this template -->
-    <link href="css/sticky-footer.css" rel="stylesheet">
+<!-- Bootstrap core CSS -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+<link href="css/bootstrap-app-custom.css" rel="stylesheet">
+<link href="css/animate.min.css" rel="stylesheet">
 
-    <!-- Just for debugging purposes. Don't actually copy this line! -->
-    <!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+<!-- Custom styles for this template -->
+<link href="css/sticky-footer.css" rel="stylesheet">
 
-    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
+<!-- Just for debugging purposes. Don't actually copy this line! -->
+<!--[if lt IE 9]><script src="../../docs-assets/js/ie8-responsive-file-warning.js"></script><![endif]-->
+
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
-  </head>
+</head>
 
-  <body>
+<body>
 
-	    <!-- Wrap all page content here -->
-	    <div id="wrap">
-	
-	      <!-- Begin page content -->
-	      <div class="container">
-	        <div class="page-header">
-	          <h1>La d&eacute;cada ganada</h1>
-	        </div>
-	        <p class="lead">Eleg&iacute; buscar Nac&Pop o Internacional y superior (todo junto, sin separar)</p>
-	
-	        <p>Us&aacute; <a href="../sticky-footer-navbar">Correo Argentino, OCA, Moreno's Mail</a> o lo que quieras.</p>
-	
-			<div class="row">
-			  <div class="col-lg-12">
-			    <div class="input-group">
-			      <span class="input-group-btn">
-			        <button class="btn btn-default" type="button">DG!</button>
-			      </span>
-			      <input type="text" class="form-control" id="decadeQueryValue">
-			    </div><!-- /input-group -->
-			  </div><!-- /.col-lg-6 -->
-			</div><!-- /.row -->
-	        <button type="button" class="ganar-decada btn btn-primary btn-lg btn-block top-block">A ganar la d&eacute;cada</button>
-	        
-	        <hr />
-	        
-	        
-	        <div class="sandbox">
-				<div id="animateTest" class="">
-					<p>Tratando de ganar la d&eacute;cada...</p>
-				</div>
+	<!-- Wrap all page content here -->
+	<div id="wrap">
+
+		<!-- Begin page content -->
+		<div class="container">
+			<div class="page-header">
+				<h1>La d&eacute;cada ganada</h1>
 			</div>
-	        
-	        
-	        <div class="highlight">
-	        	<table class="table table-striped" id="decadeResults"></table>
-	        </div>
-	      </div>
-	    </div>
-	
-	    <div id="footer">
-	      <div class="container">
-	        <p class="text-muted credit">The <a href="http://martinbean.co.uk">Katrina's boys</a></p>
-	      </div>
-	    </div>
-	
-	
-	    <!-- Bootstrap core JavaScript
-	    ================================================== -->
-	    <!-- Placed at the end of the document so the pages load faster -->
-    	<script type="text/javascript" src="js/jquery.min.js"></script>
-        <script type="text/javascript" src="js/bootstrap.min.js"></script>
-        
-        
-        <script type="text/javascript">
+			<p class="lead">Eleg&iacute; buscar Nac&Pop o Internacional y
+				superior (todo junto, sin separar)</p>
 
+			<p>
+				Us&aacute; <a href="../sticky-footer-navbar">Correo Argentino, OCA,
+					Moreno's Mail</a> o lo que quieras.
+			</p>
+
+			<form id="wonDecadeForm" onsubmit="return doTheDecade($('#decadeQueryValue').val());">
+				<fieldset>
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="input-group">
+								<span class="input-group-btn">
+									<button class="btn btn-default" type="button">DG!</button>
+								</span> 
+								<input type="text" class="form-control"	id="decadeQueryValue">
+							</div>
+							<!-- /input-group -->
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="ganador" id="ganadorCANAC" value="ondn" checked>
+							    Correo Argentino - Paquete Nacional
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="ganador" id="ganadorCAINT" value="oidn">
+							    Correo Argentino - Paquete Internacional (Superior)
+							  </label>
+							</div>
+							<div class="radio">
+							  <label>
+							    <input type="radio" name="ganador" id="ganadorOCA" value="oca">
+							    OCA
+							  </label>
+							</div>
+						</div>
+						<!-- /.col-lg-6 -->
+					</div>
+					<!-- /.row -->
+					<button type="submit" class="ganar-decada btn btn-primary btn-lg btn-block top-block">
+						A ganar la d&eacute;cada
+					</button>
+				</fieldset>
+			</form>
+			<hr />
+
+
+			<h1 class="decade animated bounceInDown" id="decadeSwing">
+				Intentando ganar la d&eacute;cada
+				<span class="particle particle--c"></span>
+				<span class="particle particle--a"></span>
+				<span class="particle particle--b"></span>
+			</h1>
+
+
+			<div class="highlight" id="decadeResults">
+				
+			</div>
+		</div>
+	</div>
+
+
+	<div id="footer">
+		<div class="container">
+			<p class="text-muted credit">
+				The <a href="http://martinbean.co.uk">Katrina's boys</a>
+			</p>
+		</div>
+	</div>
+
+
+	<!-- Bootstrap core JavaScript
+	    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+
+	<script type="text/javascript">
+
+			function parseResult(result){
+				var scriptIndex = result.indexOf("<script");
+				result = result.substring(0,scriptIndex);
+				result = result.replace("alert-info","alert-danger");
+				result = result.replace("badge","label label-success");
+								
+				return result;
+			}
+			
 			function swingOnDecade(){
-				$('#animateTest').show();
-				$("#animateTest").addClass("swing animated");
+				$('#decadeSwing').show();
 			}
 
 			function swingOffDecade(){
-				$('#animateTest').hide();
-				$("#animateTest").removeClass("swing animated");
+				$('#decadeSwing').hide();
 			}
 			
 			function doTheDecade(trackingNumber){
-				var data = { id: trackingNumber, action: "oidn" };
+				var action = $("#wonDecadeForm input[type='radio']:checked").val();
+				var query = { id: trackingNumber, action: action};
 				swingOnDecade();
-				$.get( "action/caQuery.php", data)
+				$('.ganar-decada').closest('fieldset').attr('disabled','true');
+				$("#decadeResults").html('');
+				$.get( "action/caQuery.php", query)
 					.done(function( data ) {
+							data = parseResult(data);
 						try{
-							$("#decadeResults").append($("<tr />").html(data));
+							$("#decadeResults").html(data);
 						}catch(e){}
 					})
 					.fail(function( data ) {
@@ -111,21 +156,21 @@
 					})
 					.always(function(data){
 						swingOffDecade();
+						$('.ganar-decada').closest('fieldset').removeAttr('disabled');
 					});			
-
+				
+				return false;
 			}
 			
 	        
 			 $(function(){
-				$('.ganar-decada').on("click",function(){
-					doTheDecade($("#decadeQueryValue").val());
-				});
+				swingOffDecade();
 			 });
 			
 
         </script>
-        
-        
-        
-    </body>
+
+
+
+</body>
 </html>
