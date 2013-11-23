@@ -58,31 +58,13 @@
 								<input type="text" class="form-control"	id="decadeQueryValue">
 							</div>
 							<!-- /input-group -->
-							<div class="radio">
-							  <label>
-							    <input type="radio" name="ganador" id="ganadorCANAC" value="ondn" checked>
-							    Correo Argentino - Paquete Nacional
-							  </label>
-							</div>
-							<div class="radio">
-							  <label>
-							    <input type="radio" name="ganador" id="ganadorCAINT" value="oidn">
-							    Correo Argentino - Paquete Internacional (Superior)
-							  </label>
-							</div>
-							<div class="radio">
-							  <label>
-							    <input type="radio" name="ganador" id="ganadorOCA" value="oca">
-							    OCA
-							  </label>
-							</div>
 						</div>
 						<!-- /.col-lg-6 -->
+						<button type="submit" class="ganar-decada btn btn-primary btn-lg btn-block top-block">
+							A ganar la d&eacute;cada
+						</button>
 					</div>
 					<!-- /.row -->
-					<button type="submit" class="ganar-decada btn btn-primary btn-lg btn-block top-block">
-						A ganar la d&eacute;cada
-					</button>
 				</fieldset>
 			</form>
 			<hr />
@@ -121,6 +103,33 @@
 
 	<script type="text/javascript">
 
+
+			function obtainAction(trackingNumber){
+
+				var action = "oidn";
+				var startString = trackingNumber.substring(0,2).toUpperCase();
+
+
+				console.log(startString);
+				
+				var ondnp = new Array("CU","SU","EU","PU");
+				var ondnc = new Array("CC", "CD", "CL", "CM", "CO", "CP", "DE", "DI", "EC", "EE", "EO", "EP", "GC", "GD", "GE", "GF", "GO", "GR", "GS", "IN", "IS", "JP", "OL", "PP", "RD", "RR", "SL", "SP", "SR", "ST", "TC", "TL", "UP");
+				var ondi = new Array("EE", "CX", "RR", "XP", "XX", "XR");
+
+				if ($.inArray(startString, ondnp) >= 0){
+					action = "ondnp";
+				}else if ($.inArray(startString, ondnc) >= 0){
+					action = "ondnc";
+				}else if ($.inArray(startString, ondi) >= 0){
+					action = "ondi";
+				}else if (/^\d+$/.test(trackingNumber)){
+					//FIXME ACA puede ser onpa y ondng
+				}
+
+				return action;
+			}
+
+	
 			function parseResult(result){
 				var scriptIndex = result.indexOf("<script");
 				result = result.substring(0,scriptIndex);
@@ -139,7 +148,7 @@
 			}
 			
 			function doTheDecade(trackingNumber){
-				var action = $("#wonDecadeForm input[type='radio']:checked").val();
+				var action = obtainAction(trackingNumber);
 				var query = { id: trackingNumber, action: action};
 				swingOnDecade();
 				$('.ganar-decada').closest('fieldset').attr('disabled','true');
