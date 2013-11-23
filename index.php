@@ -105,6 +105,7 @@
 	        
 		 $(function(){
 			swingOffDecade();
+			$("#decadeQueryValue").focus();
 		 });
 
     </script>
