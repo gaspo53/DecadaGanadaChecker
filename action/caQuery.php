@@ -2,7 +2,6 @@
  
         // decadaGanada.php - Otro logro de la Cristi
         // Se llama de la forma: decadaGanada.php?id=721004894&producto=RD&pais=AR
- 
         function doPostRequest($url, $data, $optionalHeaders = null)
         {
              $params = array('http' => array(

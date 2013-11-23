@@ -27,6 +27,9 @@ function obtainAction(trackingNumber) {
 }
 
 function parseResult(result) {
+	
+	result = $.trim(result);
+	
 	var scriptIndex = result.indexOf("<script");
 	result = result.substring(0, scriptIndex);
 	result = result.replace("alert-info", "alert-danger");
@@ -43,33 +46,51 @@ function swingOffDecade() {
 	$('#decadeSwing').hide();
 }
 
+function swingCfk(){
+	$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
+}
+
+function errorAlert(message){
+	var alertError = $("<div />")
+		.addClass("alert alert-danger")
+		.append("<p />")
+		.html(message);
+	
+	$("#decadeResults").html(alertError);
+
+}
 function doTheDecade(trackingNumber) {
 	var action = obtainAction(trackingNumber);
 	var query = {
 		id : trackingNumber,
 		action : action
 	};
+	
 	swingOnDecade();
+	
 	$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
 	$("#decadeResults").html('');
-	$
-			.get("action/caQuery.php", query)
+	
+	$.get("action/caQuery.php", query)
 			.done(function(data) {
 				data = parseResult(data);
-				try {
-					$("#decadeResults").html(data);
-				} catch (e) {
+				if (data == ""){
+					errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+					swingCfk();
+				}else{
+					try {
+						$("#decadeResults").html(data);
+					} catch (e) {
+						errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+						swingCfk();
+					}
 				}
 			})
-			.fail(
-					function(data) {
-						var alertError = $("<div />")
-								.addClass("alert alert-danger")
-								.append("<p />")
-								.html('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
-						$("#decadeResults").html(alertError);
-						$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
-					}).always(function(data) {
+			.fail(function(data) {
+
+						swingCfk();
+					})
+			.always(function(data) {
 				swingOffDecade();
 				$('.ganar-decada').closest('fieldset').removeAttr('disabled');
 			});
