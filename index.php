@@ -161,7 +161,9 @@
 						}catch(e){}
 					})
 					.fail(function( data ) {
-						alert( "No se ha ganado");
+						var alertError = $("<div />").addClass("alert alert-danger").append("<p />")
+													.html('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+						$("#decadeResults").html(alertError);
 					})
 					.always(function(data){
 						swingOffDecade();
