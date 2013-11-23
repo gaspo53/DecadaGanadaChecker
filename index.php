@@ -43,7 +43,7 @@
 				superior (todo junto, sin separar)</p>
 
 			<p>
-				Us&aacute; <a href="../sticky-footer-navbar">Correo Argentino, OCA,
+				Us&aacute; <a href="#">Correo Argentino, OCA,
 					Moreno's Mail</a> o lo que quieras.
 			</p>
 
