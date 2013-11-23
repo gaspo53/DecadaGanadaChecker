@@ -60,40 +60,43 @@ function errorAlert(message){
 
 }
 function doTheDecade(trackingNumber) {
-	var action = obtainAction(trackingNumber);
-	var query = {
-		id : trackingNumber,
-		action : action
-	};
 	
-	swingOnDecade();
-	
-	$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
-	$("#decadeResults").html('');
-	
-	$.get("action/caQuery.php", query)
-			.done(function(data) {
-				data = parseResult(data);
-				if (data == ""){
-					errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
-					swingCfk();
-				}else{
-					try {
-						$("#decadeResults").html(data);
-					} catch (e) {
+	trackingNumber = $.trim(trackingNumber);
+	if (trackingNumber != ""){
+		var action = obtainAction(trackingNumber);
+		var query = {
+			id : trackingNumber,
+			action : action
+		};
+		
+		swingOnDecade();
+		
+		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
+		$("#decadeResults").html('');
+		
+		$.get("action/caQuery.php", query)
+				.done(function(data) {
+					data = parseResult(data);
+					if (data == ""){
 						errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
 						swingCfk();
+					}else{
+						try {
+							$("#decadeResults").html(data);
+						} catch (e) {
+							errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+							swingCfk();
+						}
 					}
-				}
-			})
-			.fail(function(data) {
-
-						swingCfk();
-					})
-			.always(function(data) {
-				swingOffDecade();
-				$('.ganar-decada').closest('fieldset').removeAttr('disabled');
-			});
-
+				})
+				.fail(function(data) {
+	
+							swingCfk();
+						})
+				.always(function(data) {
+					swingOffDecade();
+					$('.ganar-decada').closest('fieldset').removeAttr('disabled');
+				});
+	}
 	return false;
 }
