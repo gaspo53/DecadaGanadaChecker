@@ -66,9 +66,9 @@ function doTheDecade(trackingNumber) {
 						var alertError = $("<div />")
 								.addClass("alert alert-danger")
 								.append("<p />")
-								.html(
-										'La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+								.html('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
 						$("#decadeResults").html(alertError);
+						$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
 					}).always(function(data) {
 				swingOffDecade();
 				$('.ganar-decada').closest('fieldset').removeAttr('disabled');
