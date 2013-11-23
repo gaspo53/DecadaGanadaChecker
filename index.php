@@ -87,7 +87,7 @@
 	<div id="footer">
 		<div class="container">
 			<p class="text-muted credit">
-				The <a href="http://martinbean.co.uk">Katrina's boys</a> - Demostrando la calidad de los profesionales que contrata el Gobierno Nacioal
+				The <a href="http://martinbean.co.uk" target="_blank">Katrina's boys</a> - Demostrando la calidad de los profesionales que contrata el Gobierno Nacioal
 			</p>
 		</div>
 	</div>
