@@ -43,8 +43,7 @@
 				superior (todo junto, sin separar)</p>
 
 			<p>
-				Us&aacute; <a href="#">Correo Argentino, OCA,
-					Moreno's Mail</a> o lo que quieras.
+				Us&aacute; <a href="#">Correo Argentino</a> (por ahora).
 			</p>
 
 			<form id="wonDecadeForm" onsubmit="return doTheDecade($('#decadeQueryValue').val());">
