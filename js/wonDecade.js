@@ -78,6 +78,9 @@ function errorAlert(message){
 function doTheDecade(trackingNumber) {
 	
 	trackingNumber = $.trim(trackingNumber);
+
+	trackingNumber = trackingNumber.replace(/-/gi,"");
+	
 	saveTrackingToLocalStorate(trackingNumber);
 	
 	if (trackingNumber != ""){
