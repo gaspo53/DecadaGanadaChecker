@@ -2,15 +2,14 @@
  
         // decadaGanada.php - Otro logro de la Cristi
         // Se llama de la forma: decadaGanada.php?id=721004894&producto=RD&pais=AR
-        function doPostRequest($url, $data, $optionalHeaders = null)
+        function doPostRequest($url, $data)
         {
              $params = array('http' => array(
-                          'method' => 'POST',
-                          'content' => $data
-                       ));
-             if ($optionalHeaders !== null) {
-               $params['http']['header'] = $optionalHeaders;
-             }
+		                          'method' => 'POST',
+		                          'content' => $data,
+             					  'header' => 'Origin: http://www.correoargentino.com.ar\r\n'
+             				));
+
              $ctx = stream_context_create($params);
              $fp = @fopen($url, 'rb', false, $ctx);
              if (!$fp) {
@@ -37,6 +36,8 @@
                 $dataArray = array('id' => $id, 'producto' => $producto, 'pais' => $pais, 'action' => $action);
                 $data = http_build_query($dataArray);
  
-                echo doPostRequest($api, $data);
+                $response =  doPostRequest($api, $data);
+                
+                echo $response;
         }
 ?>
