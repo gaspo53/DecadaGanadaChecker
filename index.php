@@ -125,7 +125,7 @@
 				$('.ganar-decada-affix').on("click",function(){
 					$("#decadeQueryValue").val($(this).html());
 
-					$('.ganar-decada-affix-li').removeClass("active");
+					$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
 
 					$(this).parents('li').addClass("active");
 
