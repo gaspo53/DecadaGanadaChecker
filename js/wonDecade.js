@@ -86,7 +86,7 @@ function doTheDecade(trackingNumber) {
 	if (trackingNumber != ""){
 		var query = obtainQuery(trackingNumber);
 		
-		history.pushState({}, "Intentando ganar la decada", "?id="+trackingNumber);
+		history.pushState({}, "Intentando ganar la decada", "?id="+trackingNumber+"#decadeResults");
 		
 		swingOnDecade();
 		
@@ -144,7 +144,7 @@ function addTrackingToAffixList(trackingNumber, active){
 		var item = $("<a />").attr("id","dgTracking"+trackingNumber);
 		var activeClass="";
 		
-		item.attr('href','#');
+		item.attr('href','#decadeResults');
 		item.addClass('ganar-decada ganar-decada-affix');
 		item.html(trackingNumber);
 		
