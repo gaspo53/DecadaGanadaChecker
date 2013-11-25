@@ -83,6 +83,8 @@ function doTheDecade(trackingNumber) {
 	if (trackingNumber != ""){
 		var query = obtainQuery(trackingNumber);
 		
+		history.pushState({}, "Intentando ganar la decada", "?id="+trackingNumber);
+		
 		swingOnDecade();
 		
 		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');

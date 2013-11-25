@@ -128,8 +128,6 @@
 					$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
 
 					$(this).parents('li').addClass("active");
-
-					history.pushState({}, "page 2", "?id="+$(this).html());
 					
 					$("#wonDecadeForm").submit();
 				});
