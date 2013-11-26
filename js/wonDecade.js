@@ -83,7 +83,8 @@ function infoAlert(message){
 
 function swingCfk(){
     errorAlert('Esto significa que el servidor del Correo no nos di&oacute; una respuesta; generalmente debido a la insuficiencia de recursos, no puede atender tantas consultas.'+
-    		   '<br /> <strong>No desesperes</strong>, es frecuente que Correo Argentino peque por no brindar el servicio. <br /> Intent&aacute; las veces que quieras hasta que funcione.-');
+    		   '<br /> <strong>No desesperes</strong>, es frecuente que Correo Argentino peque por no brindar el servicio. <br /> Intent&aacute; las veces que quieras hasta que funcione.-'+
+    		   '<br /> <br /> Puede ser que el n&uacute;mero que ingresaste o bien no existe, o todav&iacute;a no ha impactado en los servidores');
     $("#decadeResults").append($("<img />").addClass("img-circle img-responsive").attr("src","img/error.jpeg"));
 }
 
@@ -124,8 +125,10 @@ function doTheDecade(trackingNumber) {
 		$.get("action/caQuery.php", query)
 				.done(function(data) {
 					data = parseResult(data);
-					if (data == ""){
+					if (!dataValid(data)){
 						swingCfk();
+						removeSavedTracking(trackingNumber);
+						buildTrackingAffixList();
 					}else{
 						try {
 							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
@@ -141,6 +144,7 @@ function doTheDecade(trackingNumber) {
 				})
 				.fail(function(data) {
 					swingCfk();
+					removeSavedTracking(trackingNumber);
 				})
 				.always(function(data) {
 					swingOffDecade();
@@ -149,6 +153,18 @@ function doTheDecade(trackingNumber) {
 	}
 	return false;
 }
+
+
+function dataValid(data){
+	var status = true;
+	
+	var index_no_result = data.indexOf("No se encontraron resultados");
+	
+	status = status && (data != "") && (index_no_result == -1);
+	
+	return status;
+}
+
 
 function buildTrackingAffixList(){
 	var actualTrackingsArray = getSavedTrackingsAsArray();
@@ -249,9 +265,11 @@ function removeSavedTracking(trackingNumber){
 	
 	if (Modernizr.localstorage) {
 		localStorage["dgTrackingNumbers"] = actualTrackings.replace(","+trackingNumber, ""); 
+		localStorage.removeItem(trackingNumber);
 	}else{
 		//Cookie
 		document.cookie = "dgTrackingNumbers=" + getCookieData("dgTrackingNumbers").replace(","+trackingNumber, ""); 
+		delete_cookie(trackingNumber);
 	}
 	
 	if (getSavedTrackingsAsArray().length == 0){
@@ -309,3 +327,7 @@ function getCookieData( name ) {
     }
     return false;
 }
+
+var delete_cookie = function(name) {
+    document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+};
