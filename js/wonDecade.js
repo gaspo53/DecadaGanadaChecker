@@ -84,7 +84,7 @@ function infoAlert(message){
 function swingCfk(){
     errorAlert('Esto significa que el servidor del Correo no nos di&oacute; una respuesta; generalmente debido a la insuficiencia de recursos, no puede atender tantas consultas.'+
     		   '<br /> <strong>No desesperes</strong>, es frecuente que Correo Argentino peque por no brindar el servicio. <br /> Intent&aacute; las veces que quieras hasta que funcione.-'+
-    		   '<br /> <br /> Puede ser que el n&uacute;mero que ingresaste o bien no existe, o todav&iacute;a no ha impactado en los servidores');
+    		   '<br /> <br /> Adem&aacute;s, puede ser que el n&uacute;mero que ingresaste o bien no existe, o todav&iacute;a no ha impactado en los servidores');
     $("#decadeResults").append($("<img />").addClass("img-circle img-responsive").attr("src","img/error.jpeg"));
 }
 
