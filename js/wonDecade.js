@@ -91,8 +91,8 @@ function parseTrackingNumber(trackingNumber){
 	trackingNumber = $.trim(trackingNumber);
 
 	trackingNumber = trackingNumber.replace(/#/gi,"");
-	trackingNumber = trackingNumber.replace(/(/gi,"");
-	trackingNumber = trackingNumber.replace(/)/gi,"");
+	trackingNumber = trackingNumber.replace(/\(/gi,"");
+	trackingNumber = trackingNumber.replace(/\)/gi,"");
 	trackingNumber = trackingNumber.replace(/\s/g, "");
 	
 	return trackingNumber;
