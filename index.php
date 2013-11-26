@@ -50,7 +50,7 @@
 			<!-- Begin page content -->
 			<div class="container">
 				<div class="page-header">
-					<h1>La d&eacute;cada ganada</h1>
+					<h1>Consulta de env&iacute;os</h1>
 				</div>
 				<p class="lead">S&oacute;lo ingres&aacute; el n&uacute;mero de env&iacute;o y listo!</p>
 	
@@ -62,17 +62,15 @@
 					<fieldset>
 						<div class="row">
 							<div class="col-lg-12">
-								<div class="input-group">
-									<span class="input-group-btn">
-										<button class="btn btn-default" type="button">DG!</button>
-									</span> 
-									<input type="text" class="form-control"	id="decadeQueryValue">
+								<div class="form-group">
+									<input  type="text" class="form-control"	id="decadeQueryValue" 
+											placeholder="Ej.: RD654985313AR" autocomplete="off" autofocus="autofocus">
 								</div>
 								<!-- /input-group -->
 							</div>
 							<!-- /.col-lg-6 -->
 							<button type="submit" class="ganar-decada btn btn-primary btn-lg btn-block top-block">
-								A ganar la d&eacute;cada...
+								Consultar
 							</button>
 						</div>
 						<!-- /.row -->
@@ -82,7 +80,7 @@
 	
 	
 				<h1 class="decade animated bounceInDown" id="decadeSwing">
-					Intentando ganar la d&eacute;cada
+					Comprobando si el personal del Correo no est&aacute; en el receso...
 					<span class="particle particle--c"></span>
 					<span class="particle particle--a"></span>
 					<span class="particle particle--b"></span>
@@ -120,7 +118,9 @@
 				buildTrackingAffixList();
 
 				$('.ganar-decada-affix').on("click",function(){
-					$("#decadeQueryValue").val($(this).html());
+					var text = $(this).clone().children().remove().end().text();
+
+					$("#decadeQueryValue").val(text);
 
 					$("#wonDecadeForm").submit();
 				});
@@ -131,7 +131,7 @@
 				});
 
 				var idParam;
-				<?php if (($_GET['id']) && (strlen($_GET['id']) >= 10) ){ ?>
+				<?php if ( isset($_GET['id']) && (strlen($_GET['id']) >= 10) ){ ?>
 					idParam = "<?php echo $_GET['id']; ?>";
 				<?php }?>
 
@@ -139,6 +139,16 @@
 					$("#decadeQueryValue").val(idParam);
 					$("#wonDecadeForm").submit();
 				}
+
+				$('.save-item-label').on("click", function(){
+					$("#descripcionModalForm").submit();
+				});
+
+				$('#descripcionModalForm').on("submit", function(e){
+					e.preventDefault();
+					saveTrackingLabel($("#decadeQueryValue").val(),$("#descripcion").val());
+					$("#descripcionModal").modal('toggle');
+				});					
 				
 			 });
 	
@@ -154,5 +164,32 @@
 		  ga('send', 'pageview');
 		
 		</script>
+		
+		
+		<div class="modal fade" id="descripcionModal" tabindex="-1">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Qu&eacute; es esto?</h4>
+		      </div>
+		      <div class="modal-body">
+		        <p>S&eacute; lo m&aacute;s breve posible</p>
+		        <form class="form-horizontal" role="form" id="descripcionModalForm" >
+				  <div class="form-group">
+				    <label class="sr-only" for="descripcion">Descripci&oacute;n</label>
+				    <div class="col-sm-7">
+				    	<input type="text" class="form-control input-large" id="descripcion" placeholder="ej.: Zapatillas, memorias, etc." maxlength="32">
+			    	</div>
+				  </div>
+			    </form>
+		      </div>
+		      <div class="modal-footer">
+		        <button type="submit" class="save-item-label btn btn-primary" data-dismiss="modal">Guardar</button>
+		      </div>
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->		
+		
 	</body>
 </html>

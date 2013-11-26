@@ -24,6 +24,7 @@ function obtainQuery(trackingNumber) {
 			if ($.inArray(startString, ondi) >= 0) {
 				action = "ondi";
 			}else{ 
+				//Si es todo numeros
 				if (/^\d+$/.test(trackingNumber)) {
 					// FIXME ACA puede ser onpa y ondng
 				}
@@ -50,7 +51,8 @@ function parseResult(result) {
 	result = result.substring(0, scriptIndex);
 	result = result.replace("alert-info", "alert-danger");
 	result = result.replace("badge", "label label-success");
-
+	result = result.replace('<a class="close" data-dismiss="alert">&times;</a>','');
+	
 	return result;
 }
 
@@ -62,20 +64,27 @@ function swingOffDecade() {
 	$('#decadeSwing').hide();
 }
 
-
 function errorAlert(message){
-	var alertError = $("<div />")
-		.addClass("alert alert-danger")
-		.append("<p />")
-		.html(message);
-	
+	var alertError = $("<div />").addClass("bs-callout bs-callout-danger");
+		alertError.append($("<h4 />").html("Error en la consulta"));
+		alertError.append($("<p />").html(message));
 	$("#decadeResults").html(alertError);
 
 }
 
+
+function infoAlert(message){
+	var alertInfo = $("<div />").addClass("bs-callout bs-callout-info");
+		alertInfo.append($("<h4 />").html("Encontramos tu paquete =)"));
+		alertInfo.append($("<p />").html(message));
+	$("#decadeResults").html(alertInfo);
+
+}
+
 function swingCfk(){
-    errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
-	$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
+    errorAlert('Esto significa que el servidor del Correo no nos di&oacute; una respuesta; generalmente debido a la insuficiencia de recursos, no puede atender tantas consultas.'+
+    		   '<br /> <strong>No desesperes</strong>, es frecuente que Correo Argentino peque por no brindar el servicio. <br /> Intent&aacute; las veces que quieras hasta que funcione.-');
+    $("#decadeResults").append($("<img />").addClass("img-circle img-responsive").attr("src","img/error.jpeg"));
 }
 
 function doTheDecade(trackingNumber) {
@@ -83,20 +92,28 @@ function doTheDecade(trackingNumber) {
 	trackingNumber = $.trim(trackingNumber);
 
 	trackingNumber = trackingNumber.replace(/-/gi,"");
-	
+	trackingNumber = trackingNumber.replace(/\s/g, "");
 	
 	if (trackingNumber != ""){
 		var query = obtainQuery(trackingNumber);
 		
-		history.pushState({}, "Intentando ganar la decada", "?id="+trackingNumber+"#decadeResults");
+		history.pushState({}, "Intentando hacer trabajar al Correo...", "?id="+trackingNumber);
 
 		$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
 
 		saveTrackingToLocalStorate(trackingNumber);
-		
 		swingOnDecade();
 		
 		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
+
+		var label = getTrackingLabel(trackingNumber);
+		if (label){
+			$("#decadeQueryValue").val($("#decadeQueryValue").val()+" ("+label+")");
+		}
+		
+		//Limpio el modal
+		$("#descripcion").val('');
+		
 		$("#decadeResults").html('');
 		
 		$.get("action/caQuery.php", query)
@@ -106,14 +123,19 @@ function doTheDecade(trackingNumber) {
 						swingCfk();
 					}else{
 						try {
-							$("#decadeResults").html(data);
+							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
+							$("#decadeResults").append(data);
+							if ( (!label) || (label.length == 0) ){
+								$("#descripcionModal").modal('show');
+								$("#description").focus();
+							}
 						} catch (e) {
 							swingCfk();
 						}
 					}
 				})
 				.fail(function(data) {
-							swingCfk();
+					swingCfk();
 				})
 				.always(function(data) {
 					swingOffDecade();
@@ -148,12 +170,19 @@ function addTrackingToAffixList(trackingNumber, active){
 		var item = $("<a />").attr("id","dgTracking"+trackingNumber);
 		var activeClass="";
 		
-		item.attr('href','#decadeResults');
+		item.attr('href','#');
 		item.addClass('ganar-decada ganar-decada-affix');
 		item.html(trackingNumber);
 		
 		if (active){
 			activeClass = "active";
+		}
+		
+		var trackingLabel = getTrackingLabel(trackingNumber);
+		if (trackingLabel){
+			item.attr("title",trackingLabel);
+			var label = $("<code />").addClass("block").text(trackingLabel);
+			item.append(label);
 		}
 		
 		affixUl.append($('<li />').addClass('ganar-decada-affix-li'+" "+activeClass).append(item));
@@ -181,7 +210,6 @@ function trackingExists(trackingNumber){
 function saveTrackingToLocalStorate(trackingNumber){
 	
 	var actualTrackings = getSavedTrackings();
-
 	if (actualTrackings){
 		if (!trackingExists(trackingNumber)){
 			if (Modernizr.localstorage) {
@@ -236,6 +264,32 @@ function getSavedTrackingsAsArray(){
 	
 	return trackingNumbersArray;
 }
+
+
+function saveTrackingLabel(trackingNumber, value){
+	value = value.replace(/\s/g, "");
+	if (Modernizr.localstorage) {
+		localStorage[trackingNumber] = value;
+	}else{
+		document.cookie = "dgTrackingNumbers=" + value;
+	}
+	buildTrackingAffixList();
+}
+
+function getTrackingLabel(trackingNumber){
+	var label;
+	if (Modernizr.localstorage) {
+		label = localStorage[trackingNumber];
+	}else{
+		label = getCookieData(trackingNumber);
+	}	
+	if (label){
+		label = label.replace(/\s/g, "");
+	}
+	
+	return label;
+}
+
 
 
 //Commons

@@ -35,6 +35,11 @@ h1.decade {
     text-align: center;
 }
 
+.block{
+	clear: both !important;
+	display: block !important;
+}
+
 .cf:before,.cf:after{content:"";display:table;}
 .cf:after{clear:both;}
 .cf{zoom:1;}
