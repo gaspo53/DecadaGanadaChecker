@@ -178,6 +178,20 @@ function buildTrackingAffixList(){
 	}else{
 		$("#usedTrackingList").hide();
 	}
+	
+
+	$('.ganar-decada-affix').on("click",function(){
+		var text = $(this).clone().children().remove().end().text();
+
+		$("#decadeQueryValue").val(text);
+
+		$("#wonDecadeForm").submit();
+	});
+
+	$('.ganar-decada-affix-a-remove').on("click",function(){
+		removeSavedTracking($(this).find('li').last().html());
+		$(this).find('li').remove();
+	});	
 }
 
 function addTrackingToAffixList(trackingNumber, active){

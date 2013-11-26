@@ -117,19 +117,6 @@
 
 				buildTrackingAffixList();
 
-				$('.ganar-decada-affix').on("click",function(){
-					var text = $(this).clone().children().remove().end().text();
-
-					$("#decadeQueryValue").val(text);
-
-					$("#wonDecadeForm").submit();
-				});
-
-				$('.ganar-decada-affix-a-remove').on("click",function(){
-					removeSavedTracking($(this).find('li').last().html());
-					$(this).find('li').remove();
-				});
-
 				var idParam;
 				<?php if ( isset($_GET['id']) && (strlen($_GET['id']) >= 10) ){ ?>
 					idParam = "<?php echo $_GET['id']; ?>";
