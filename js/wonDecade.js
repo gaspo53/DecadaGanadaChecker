@@ -87,12 +87,20 @@ function swingCfk(){
     $("#decadeResults").append($("<img />").addClass("img-circle img-responsive").attr("src","img/error.jpeg"));
 }
 
-function doTheDecade(trackingNumber) {
-	
+function parseTrackingNumber(trackingNumber){
 	trackingNumber = $.trim(trackingNumber);
 
-	trackingNumber = trackingNumber.replace(/-/gi,"");
+	trackingNumber = trackingNumber.replace(/#/gi,"");
+	trackingNumber = trackingNumber.replace(/(/gi,"");
+	trackingNumber = trackingNumber.replace(/)/gi,"");
 	trackingNumber = trackingNumber.replace(/\s/g, "");
+	
+	return trackingNumber;
+}
+
+function doTheDecade(trackingNumber) {
+	
+	trackingNumber = parseTrackingNumber(trackingNumber);
 	
 	if (trackingNumber != ""){
 		var query = obtainQuery(trackingNumber);
@@ -107,9 +115,6 @@ function doTheDecade(trackingNumber) {
 		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
 
 		var label = getTrackingLabel(trackingNumber);
-		if (label){
-			$("#decadeQueryValue").val($("#decadeQueryValue").val()+" ("+label+")");
-		}
 		
 		//Limpio el modal
 		$("#descripcion").val('');
