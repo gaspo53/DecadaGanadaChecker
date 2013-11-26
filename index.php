@@ -1,5 +1,3 @@
-<?php $id = $_GET['id'] || NULL?>
-
 <!DOCTYPE html>
 	<html lang="en">
 	<head>
@@ -131,17 +129,17 @@
 					removeSavedTracking($(this).find('li').last().html());
 					$(this).find('li').remove();
 				});
+
 				var idParam;
-				<?php if ( ($id) && (strlen($id) > 10) ){ ?>
-					idParam = "<?php echo $id; ?>";
+				<?php if (($_GET['id']) && (strlen($_GET['id']) >= 10) ){ ?>
+					idParam = "<?php echo $_GET['id']; ?>";
 				<?php }?>
-				
+
 				if ($.trim(idParam) != ""){
 					$("#decadeQueryValue").val(idParam);
 					$("#wonDecadeForm").submit();
 				}
 				
-				console.log(idParam);
 			 });
 	
 	    </script>

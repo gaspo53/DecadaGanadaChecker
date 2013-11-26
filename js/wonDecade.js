@@ -140,7 +140,7 @@ function buildTrackingAffixList(){
 function addTrackingToAffixList(trackingNumber, active){
 	var affixUl = $("#usedTrackingList").find('ul');
 	$("#usedTrackingList").show();
-	
+
 	//FIXME ver como acomodarlo
 	var removeItem = $("<a />").addClass("close ganar-decada-affix-a-remove").html("x");
 	
