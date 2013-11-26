@@ -1,4 +1,4 @@
-<?php $id = $_GET['id']?>
+<?php $id = $_GET['id'] || NULL?>
 
 <!DOCTYPE html>
 	<html lang="en">
@@ -125,10 +125,6 @@
 				$('.ganar-decada-affix').on("click",function(){
 					$("#decadeQueryValue").val($(this).html());
 
-					$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
-
-					$(this).parents('li').addClass("active");
-					
 					$("#wonDecadeForm").submit();
 				});
 

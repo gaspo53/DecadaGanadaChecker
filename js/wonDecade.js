@@ -81,12 +81,15 @@ function doTheDecade(trackingNumber) {
 
 	trackingNumber = trackingNumber.replace(/-/gi,"");
 	
-	saveTrackingToLocalStorate(trackingNumber);
 	
 	if (trackingNumber != ""){
 		var query = obtainQuery(trackingNumber);
 		
 		history.pushState({}, "Intentando ganar la decada", "?id="+trackingNumber+"#decadeResults");
+
+		$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
+
+		saveTrackingToLocalStorate(trackingNumber);
 		
 		swingOnDecade();
 		
@@ -111,7 +114,7 @@ function doTheDecade(trackingNumber) {
 				.fail(function(data) {
 	
 							swingCfk();
-						})
+				})
 				.always(function(data) {
 					swingOffDecade();
 					$('.ganar-decada').closest('fieldset').removeAttr('disabled');
