@@ -267,7 +267,7 @@ function getSavedTrackingsAsArray(){
 
 
 function saveTrackingLabel(trackingNumber, value){
-	value = value.replace(/\s/g, "");
+	value = $.trim(value);
 	if (Modernizr.localstorage) {
 		localStorage[trackingNumber] = value;
 	}else{
@@ -284,7 +284,7 @@ function getTrackingLabel(trackingNumber){
 		label = getCookieData(trackingNumber);
 	}	
 	if (label){
-		label = label.replace(/\s/g, "");
+		label = $.trim(label);
 	}
 	
 	return label;
