@@ -62,9 +62,6 @@ function swingOffDecade() {
 	$('#decadeSwing').hide();
 }
 
-function swingCfk(){
-	$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
-}
 
 function errorAlert(message){
 	var alertError = $("<div />")
@@ -75,6 +72,12 @@ function errorAlert(message){
 	$("#decadeResults").html(alertError);
 
 }
+
+function swingCfk(){
+    errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
+	$("#decadeResults").append($('<img />').attr('src','img/swing_cfk.gif'));
+}
+
 function doTheDecade(trackingNumber) {
 	
 	trackingNumber = $.trim(trackingNumber);
@@ -100,19 +103,16 @@ function doTheDecade(trackingNumber) {
 				.done(function(data) {
 					data = parseResult(data);
 					if (data == ""){
-						errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
 						swingCfk();
 					}else{
 						try {
 							$("#decadeResults").html(data);
 						} catch (e) {
-							errorAlert('La d&eacute;cada no ha sido ganada, intente nuevamente m&aacute;s tarde <strong> votando a otra gente </strong>');
 							swingCfk();
 						}
 					}
 				})
 				.fail(function(data) {
-	
 							swingCfk();
 				})
 				.always(function(data) {
@@ -140,6 +140,7 @@ function buildTrackingAffixList(){
 function addTrackingToAffixList(trackingNumber, active){
 	var affixUl = $("#usedTrackingList").find('ul');
 	$("#usedTrackingList").show();
+	
 	//FIXME ver como acomodarlo
 	var removeItem = $("<a />").addClass("close ganar-decada-affix-a-remove").html("x");
 	

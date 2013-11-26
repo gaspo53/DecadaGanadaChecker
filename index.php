@@ -54,8 +54,7 @@
 				<div class="page-header">
 					<h1>La d&eacute;cada ganada</h1>
 				</div>
-				<p class="lead">Eleg&iacute; buscar Nac&Pop o Internacional y
-					superior (todo junto, sin separar)</p>
+				<p class="lead">S&ocute;lo ingres&aacute; el n&uacute;mero de env&iacute;o y listo!</p>
 	
 				<p>
 					Us&aacute; <a href="#">Correo Argentino</a> (por ahora).
@@ -133,7 +132,7 @@
 					$(this).find('li').remove();
 				});
 				var idParam;
-				<?php if ($id){ ?>
+				<?php if ( ($id) && (strlen($id) > 10) ){ ?>
 					idParam = "<?php echo $id; ?>";
 				<?php }?>
 				
