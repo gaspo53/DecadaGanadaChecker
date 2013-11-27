@@ -94,7 +94,7 @@ function swingCfk(){
 
 function parseTrackingNumber(trackingNumber){
 	trackingNumber = $.trim(trackingNumber);
-
+	trackingNumber = trackingNumber.toUpperCase();
 	trackingNumber = trackingNumber.replace(/-/gi,"");
 	trackingNumber = trackingNumber.replace(/#/gi,"");
 	trackingNumber = trackingNumber.replace(/\(/gi,"");
