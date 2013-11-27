@@ -1,3 +1,4 @@
+var actualTracking;
 
 function obtainQuery(trackingNumber) {
 
@@ -72,9 +73,9 @@ function errorAlert(message){
 
 }
 
-
 function infoAlert(message){
 	var alertInfo = $("<div />").addClass("bs-callout bs-callout-info");
+		alertInfo.append($("<button />").addClass("close ganar-decada-affix-a-remove").attr('title','Dejar de seguir').html("&times;"));
 		alertInfo.append($("<h4 />").html("Encontramos tu paquete =)"));
 		alertInfo.append($("<p />").html(message));
 	$("#decadeResults").html(alertInfo);
@@ -128,11 +129,11 @@ function doTheDecade(trackingNumber) {
 					if (!dataValid(data)){
 						swingCfk();
 						removeSavedTracking(trackingNumber);
-						buildTrackingAffixList();
 					}else{
 						try {
 							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
 							$("#decadeResults").append(data);
+							actualTracking = trackingNumber;
 							if ( (!label) || (label.length == 0) ){
 								$("#descripcionModal").modal('show');
 								$("#description").focus();
@@ -149,6 +150,7 @@ function doTheDecade(trackingNumber) {
 				.always(function(data) {
 					swingOffDecade();
 					$('.ganar-decada').closest('fieldset').removeAttr('disabled');
+					buildTrackingAffixList();
 				});
 	}
 	return false;
@@ -189,10 +191,21 @@ function buildTrackingAffixList(){
 	});
 
 	$('.ganar-decada-affix-a-remove').on("click",function(){
-		removeSavedTracking($(this).find('li').last().html());
+		removeSavedTrackingAlert(actualTracking);
 		$(this).find('li').remove();
 	});	
 }
+
+function removeSavedTrackingAlert(trackingNumber){
+	var confirmed = confirm("Borrar este tracking?");
+	
+	if (confirmed == true){
+		removeSavedTracking(trackingNumber);
+		buildTrackingAffixList();
+	}
+
+}
+
 
 function addTrackingToAffixList(trackingNumber, active){
 	var affixUl = $("#usedTrackingList").find('ul');
@@ -255,9 +268,9 @@ function saveTrackingToLocalStorate(trackingNumber){
 		}
 	}else{
 		if (Modernizr.localstorage){
-			localStorage["dgTrackingNumbers"] = trackingNumber;
+			localStorage["dgTrackingNumbers"] = ","+trackingNumber;
 		}else{
-			document.cookie = "dgTrackingNumbers="+trackingNumber;
+			document.cookie = "dgTrackingNumbers="+","+trackingNumber;
 		}
 		
 	}
@@ -275,6 +288,7 @@ function getSavedTrackings(){
 }
 
 function removeSavedTracking(trackingNumber){
+	
 	var actualTrackings = getSavedTrackings();
 	
 	if (Modernizr.localstorage) {
