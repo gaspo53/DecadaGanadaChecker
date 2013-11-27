@@ -200,6 +200,16 @@ function buildTrackingAffixList(){
 		$(this).find('li').remove();
 		window.location.href = HOST_ADDRESS;
 	});	
+	
+	
+	try{
+		$("#dgTracking"+actualTracking).parents('li').addClass("active");
+	}
+	catch(e){
+		//Do nothing
+	}
+	
+	
 }
 
 function removeSavedTrackingAlert(trackingNumber){
