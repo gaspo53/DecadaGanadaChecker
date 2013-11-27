@@ -33,7 +33,6 @@ function obtainQuery(trackingNumber) {
 		}
 	}
 	
-	
 	var query = {
 		id : trackingNumber,
 		action : action,
@@ -372,11 +371,13 @@ var delete_cookie = function(name) {
 };
 
 function about(){
+    $("body").addClass("modal-open");
 	$("#aboutModal").removeClass("hide");
 	if (!$("#aboutModal iframe").attr('src')){
 		$("#aboutModal").modal({backdrop: false});
 		$("#aboutModal").modal('show');
 		$("#aboutModal iframe").attr('src','http://www.youtube.com/embed/Eco4z98nIQY?html5=1&autoplay=1');
+
 		$('#aboutModal').on('hidden.bs.modal', function () {
 			$("#aboutModal iframe").removeAttr('src');
 		});
@@ -384,5 +385,6 @@ function about(){
 }
 
 function dontStopTheMusic(){
+    $("body").removeClass("modal-open");
 	$("#aboutModal").addClass("hide");
 }
