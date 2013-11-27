@@ -34,7 +34,7 @@
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/wonDecade.js"></script>
 		<script type="text/javascript">
-			var HOST_ADDRESS = "http://<?php echo $_SERVER['SERVER_ADDR'];?>";
+			var HOST_ADDRESS = "http://<?php echo $_SERVER['SERVER_NAME'];?>";
 		</script>
 	</head>
 	
