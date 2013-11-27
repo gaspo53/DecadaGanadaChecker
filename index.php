@@ -102,12 +102,30 @@
 		<div id="footer">
 			<div class="container">
 				<p class="text-muted credit">
-					The <a href="http://martinbean.co.uk" target="_blank">Katrina's boys</a> - Haciendo simple lo que debe ser simple
+					The <a href="#" onclick="about();">Katrina's boys</a> - Haciendo simple lo que debe ser simple
 				</p>
 			</div>
 		</div>
 	
 		
+		<div class="modal fade span8" id="aboutModal" tabindex="-1">
+		  <div class="modal-dialog">
+		    <div class="modal-content">
+		      <div class="modal-header">
+		        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+		        <h4 class="modal-title">Would you clap your hands, please?</h4>
+		      </div>
+		      <div class="modal-body">
+		      	<iframe width="480" height="360" frameborder="0" allowfullscreen=""></iframe>
+		      </div>
+		      <div class="modal-footer">
+		        <a href="#" onclick="dontStopTheMusic()">Me gust&oacute; el tema, dejalo mientras trackeo</a>
+		      </div>		      
+		    </div><!-- /.modal-content -->
+		  </div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->	
+​
+
 		<script type="text/javascript">
 		        
 			 $(function(){

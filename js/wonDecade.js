@@ -372,3 +372,19 @@ function getCookieData( name ) {
 var delete_cookie = function(name) {
     document.cookie = name + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;';
 };
+
+function about(){
+	$("#aboutModal").removeClass("hide");
+	if (!$("#aboutModal iframe").attr('src')){
+		$("#aboutModal").modal({backdrop: false});
+		$("#aboutModal").modal('show');
+		$("#aboutModal iframe").attr('src','http://www.youtube.com/embed/Eco4z98nIQY?html5=1&autoplay=1');
+		$('#aboutModal').on('hidden.bs.modal', function () {
+			$("#aboutModal iframe").removeAttr('src');
+		});
+	}
+}
+
+function dontStopTheMusic(){
+	$("#aboutModal").addClass("hide");
+}
