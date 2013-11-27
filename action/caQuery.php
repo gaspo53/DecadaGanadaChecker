@@ -1,5 +1,4 @@
 <?php
- 
         // decadaGanada.php - Otro logro de la Cristi
         // Se llama de la forma: decadaGanada.php?id=721004894&producto=RD&pais=AR
         function doPostRequest($url, $data)
@@ -22,11 +21,7 @@
              return $response;
         }
  
-        if (empty($_GET)){
-                echo "Ejemplos:<br>
-                        Inter: www.dajuam.com.ar/decadaGanada.php?action=oidn&id=RBtuNumeroCN<br>
-                        Nacio: www.dajuam.com.ar/decadaGanada.php?id=tuNumero&producto=RD&pais=AR&action=ondnc";
-        } else {
+        if (!empty($_GET)){
                 $id = $_GET['id'];
                 $producto = $_GET['producto'];
                 $pais = $_GET['pais'];

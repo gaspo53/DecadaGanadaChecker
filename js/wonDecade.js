@@ -171,6 +171,8 @@ function dataValid(data){
 function buildTrackingAffixList(){
 	var actualTrackingsArray = getSavedTrackingsAsArray();
 	
+	$('.ganar-decada-affix-a-remove').unbind("click");
+	
 	if (actualTrackingsArray.length > 0){
 		var affixUl = $("#usedTrackingList").find('ul');
 		$(affixUl).html('');
@@ -186,13 +188,13 @@ function buildTrackingAffixList(){
 		var text = $(this).clone().children().remove().end().text();
 
 		$("#decadeQueryValue").val(text);
-
 		$("#wonDecadeForm").submit();
 	});
 
 	$('.ganar-decada-affix-a-remove').on("click",function(){
 		removeSavedTrackingAlert(actualTracking);
 		$(this).find('li').remove();
+		window.location.href = HOST_ADDRESS;
 	});	
 }
 
@@ -211,9 +213,6 @@ function addTrackingToAffixList(trackingNumber, active){
 	var affixUl = $("#usedTrackingList").find('ul');
 	$("#usedTrackingList").show();
 
-	//FIXME ver como acomodarlo
-	var removeItem = $("<a />").addClass("close ganar-decada-affix-a-remove").html("x");
-	
 	if ($("#dgTracking"+trackingNumber).length == 0){
 		var item = $("<a />").attr("id","dgTracking"+trackingNumber);
 		var activeClass="";
