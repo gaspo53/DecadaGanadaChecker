@@ -131,7 +131,10 @@ function doTheDecade(trackingNumber) {
 					data = parseResult(data);
 					if (!dataValid(data)){
 						swingCfk();
-						removeSavedTracking(trackingNumber);
+						//Si tiene label, es que ya se ha usado
+						if (!label){
+						    removeSavedTracking(trackingNumber);
+						}
 					}else{
 						try {
 							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
@@ -148,8 +151,10 @@ function doTheDecade(trackingNumber) {
 				})
 				.fail(function(data) {
 					swingCfk();
-					removeSavedTracking(trackingNumber);
-				})
+                    //Si tiene label, es que ya se ha usado
+                    if (!label){
+                        removeSavedTracking(trackingNumber);
+                    }				})
 				.always(function(data) {
 					swingOffDecade();
 					$('.ganar-decada').closest('fieldset').removeAttr('disabled');
