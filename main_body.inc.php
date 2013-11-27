@@ -60,7 +60,7 @@
 			<div class="container">
 				<p class="text-muted credit">
 					The <a href="#" onclick="about();">Katrina's boys</a> - Haciendo simple lo que debe ser simple
-					<a href="<?php echo $SITE_URL; ?>?faq" class="right">Qu&eacute; onda Sincaptcha?</a>
+					<a href="<?php echo $SITE_URL; ?>?faq" class="right" target="_blank" >Qu&eacute; onda Sincaptcha?</a>
 				</p>
 			</div>
 		</div>

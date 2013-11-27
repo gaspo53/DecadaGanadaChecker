@@ -20,8 +20,7 @@
 					Si te gust&oacute; la idea, y la us&aacute;s, pod&eacute;s devolvernos el favor con poner "Me Gusta" y "Compartir".
 				</p>
 									
-
-				<a href="<?php echo $SITE_URL; ?>" class="btn btn-success btn-lg btn-block">Ya s&eacute;, me parece genial, quiero buscar!</a>
+				<a href="#" class="btn btn-success btn-lg btn-block" onclick="window.close();">Ya s&eacute;, me parece genial, quiero buscar!</a>
 				
 				<br /><br /><br />
 	
