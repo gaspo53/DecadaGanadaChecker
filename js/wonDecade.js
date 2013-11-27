@@ -198,7 +198,6 @@ function buildTrackingAffixList(){
 	$('.ganar-decada-affix-a-remove').on("click",function(){
 		removeSavedTrackingAlert(actualTracking);
 		$(this).find('li').remove();
-		window.location.href = HOST_ADDRESS;
 	});	
 	
 	
@@ -217,9 +216,8 @@ function removeSavedTrackingAlert(trackingNumber){
 	
 	if (confirmed == true){
 		removeSavedTracking(trackingNumber);
-		buildTrackingAffixList();
+		window.location.href = HOST_ADDRESS;
 	}
-
 }
 
 

@@ -65,7 +65,6 @@
 			</div>
 		</div>
 	
-		
 		<div class="modal fade span8" id="aboutModal" tabindex="-1">
 		  <div class="modal-dialog">
 		    <div class="modal-content">
