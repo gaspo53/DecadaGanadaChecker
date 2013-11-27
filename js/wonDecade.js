@@ -325,7 +325,7 @@ function saveTrackingLabel(trackingNumber, value){
 	if (Modernizr.localstorage) {
 		localStorage[trackingNumber] = value;
 	}else{
-		document.cookie = "dgTrackingNumbers=" + value;
+		document.cookie = trackingNumber + "=" + value;
 	}
 	buildTrackingAffixList();
 }
