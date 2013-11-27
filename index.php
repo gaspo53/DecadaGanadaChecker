@@ -43,7 +43,7 @@
 		<!-- Wrap all page content here -->
 		<div id="wrap">
 			<!-- Affix para numeros usados -->
-			<div class="col-md-3">
+			<div class="col-md-3" >
 				<div id="usedTrackingList"  class="bs-sidebar hidden-print affix" role="complementary" style="">
 		            <ul class="nav bs-sidenav"></ul>
 	          </div>		

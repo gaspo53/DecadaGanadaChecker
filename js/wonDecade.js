@@ -54,6 +54,10 @@ function parseResult(result) {
 	result = result.replace("badge", "label label-success");
 	result = result.replace('<a class="close" data-dismiss="alert">&times;</a>','');
 	
+	result = result.replace('<button class="span3 btn" onclick="PrintElem(','');
+	result = result.replace("'resultado')","");
+	result = result.replace('">Imprimir</button>','');
+	
 	return result;
 }
 
