@@ -61,11 +61,11 @@ function parseResult(result) {
 }
 
 function swingOnDecade() {
-	$('#decadeSwing').show();
+	$('#decadeSwing').removeClass("hide");
 }
 
 function swingOffDecade() {
-	$('#decadeSwing').hide();
+	$('#decadeSwing').addClass("hide");
 }
 
 function errorAlert(message){
@@ -119,7 +119,7 @@ function doTheDecade(trackingNumber) {
 		swingOnDecade();
 		
 		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
-
+		
 		var label = getTrackingLabel(trackingNumber);
 		
 		//Limpio el modal
@@ -145,6 +145,10 @@ function doTheDecade(trackingNumber) {
 								$("#descripcionModal").modal('show');
 								$("#description").focus();
 							}
+							$(".collapse").collapse();
+							$("#decadeResults").find("p").first().attr("id","decadeResultHeader");
+							$.scrollTo("#decadeResultHeader",800);
+							removeInternationalHtml();
 						} catch (e) {
 							swingCfk();
 						}
@@ -165,6 +169,16 @@ function doTheDecade(trackingNumber) {
 	return false;
 }
 
+function removeInternationalHtml(){
+	if ($("#accordion2").length > 0){
+		$("table.table.table-hover.span12").first().next("p").remove();
+		$("table.table.table-hover.span12").first().remove();
+		$("#accordion2").children("div.accordion-group").children("div.accordion-heading").remove();
+
+		$("#decadeResults").children("p").first().remove();
+		$("p .badge").removeClass("badge").addClass("label label-success");
+	}
+}
 
 function dataValid(data){
 	var status = true;
@@ -217,12 +231,14 @@ function buildTrackingAffixList(){
 }
 
 function removeSavedTrackingAlert(trackingNumber){
-	var confirmed = confirm("Borrar este tracking?");
-	
-	if (confirmed == true){
-		removeSavedTracking(trackingNumber);
-		window.location.href = HOST_ADDRESS;
-	}
+	bootbox.confirm("Borrar este tracking?", function(result) {
+		if (result){
+			removeSavedTracking(trackingNumber);
+			history.pushState("","","?");
+			$.scrollTo("#wrap");
+			$("#decadeResults").html('');
+		}
+	}); 
 }
 
 

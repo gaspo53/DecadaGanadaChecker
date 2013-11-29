@@ -40,7 +40,7 @@
 				<hr />
 	
 	
-				<h1 class="decade animated bounceInDown" id="decadeSwing">
+				<h1 class="decade animated bounceInDown hide" id="decadeSwing">
 					Comprobando si el personal del Correo no est&aacute; en el receso...
 					<span class="particle particle--c"></span>
 					<span class="particle particle--a"></span>

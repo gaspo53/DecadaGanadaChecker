@@ -35,6 +35,9 @@
 		<script type="text/javascript" src="js/modernizr.min.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript" src="js/wonDecade.js"></script>
+		<script type="text/javascript" src="js/jquery.scrollTo.min.js"></script>
+		<script type="text/javascript" src="js/bootbox.min.js"></script>
+					
 		<script type="text/javascript">
 			var HOST_ADDRESS = "<?php echo $SITE_URL;?>";
 		</script>
