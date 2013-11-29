@@ -81,7 +81,6 @@
 		    </div><!-- /.modal-content -->
 		  </div><!-- /.modal-dialog -->
 		</div><!-- /.modal -->	
-​
 
 		<div class="modal fade" id="descripcionModal" tabindex="-1">
 		  <div class="modal-dialog">
