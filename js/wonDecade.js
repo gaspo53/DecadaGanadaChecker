@@ -141,14 +141,7 @@ function doTheDecade(trackingNumber) {
 							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
 							$("#decadeResults").append(data);
 							actualTracking = trackingNumber;
-							if ( (!label) || (label.length == 0) ){
-								$("#descripcionModal").modal('show');
-								$("#description").focus();
-							}
-							$(".collapse").collapse();
-							$("#decadeResults").find("p").first().attr("id","decadeResultHeader");
-							$.scrollTo("#decadeResultHeader",800);
-							removeInternationalHtml();
+							finishUpResult(label);
 						} catch (e) {
 							swingCfk();
 						}
@@ -169,7 +162,16 @@ function doTheDecade(trackingNumber) {
 	return false;
 }
 
-function removeInternationalHtml(){
+function finishUpResult(label){
+	if ( (!label) || (label.length == 0) ){
+		$("#descripcionModal").modal('show');
+		$("#description").focus();
+	}
+	
+	$(".collapse").collapse();
+	$("#decadeResults").find("p").first().attr("id","decadeResultHeader");
+	$.scrollTo("#decadeResultHeader",800);
+	
 	if ($("#accordion2").length > 0){
 		$("table.table.table-hover.span12").first().next("p").remove();
 		$("table.table.table-hover.span12").first().remove();
