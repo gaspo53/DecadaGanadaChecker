@@ -239,6 +239,7 @@ function removeSavedTrackingAlert(trackingNumber){
 			history.pushState("","","?");
 			$.scrollTo("#wrap");
 			$("#decadeResults").html('');
+			buildTrackingAffixList();
 		}
 	}); 
 }
