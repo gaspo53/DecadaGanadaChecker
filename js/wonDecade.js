@@ -21,6 +21,7 @@ function obtainQuery(trackingNumber) {
 			action = "ondnc";
 			producto = trackingNumber.substring(0,2);
 			pais =  trackingNumber.substring(trackingNumber.length-2,trackingNumber.length);
+			trackingNumber = trackingNumber.substring(2, trackingNumber.length-2);
 		}else { 
 			if ($.inArray(startString, ondi) >= 0) {
 				action = "ondi";
