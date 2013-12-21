@@ -10,7 +10,7 @@
 			<!-- Begin page content -->
 			<div class="container">
 				<div class="page-header">
-					<h1>Consulta de env&iacute;os</h1>
+					<img src="img/logo.png" alt="Sin Captcha">
 				</div>
 				<p class="lead">Sólo ingresá el número de envío y listo!</p>
 				<p>

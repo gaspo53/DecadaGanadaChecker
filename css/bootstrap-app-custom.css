@@ -681,3 +681,45 @@ body .one .bsa_it_p { display:none; }
         margin-top: 163px;
     }
 }
+
+.page-header {
+	margin-top: 5px;
+	padding-bottom: 40px;
+}
+
+.btn-primary {
+	border-width: 4px;
+	border-color: black;
+	background-color: #F4CF6A;
+}
+
+.btn-primary:hover {
+	border-width: 4px;
+	border-color: black;
+	background-color: #FADD90;
+}
+
+textarea:focus, input:focus, input[type]:focus, .uneditable-input:focus {   
+    border-color: #F4CF6A;
+    box-shadow: 0 1px 1px #F4CF6A inset, 0 0 8px #F4CF6A;
+    outline: 0 none;
+}
+
+a {
+	color: #F4CF6A;
+}
+
+a:hover, a:focus {
+	color: #F4CF6A;
+	text-decoration: underline;
+}
+
+#footer {
+	
+	background-color: #FDFAF0 !important;
+	
+}
+
+#footer a {
+	color: #C3A554;
+}
