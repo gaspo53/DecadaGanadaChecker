@@ -43,6 +43,7 @@ h1.decade {
 .right{
 	float: right !important;
 }
+
 .cf:before,.cf:after{content:"";display:table;}
 .cf:after{clear:both;}
 .cf{zoom:1;}

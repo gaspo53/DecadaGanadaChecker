@@ -7,25 +7,37 @@
 	          </div>		
 			</div>
 			
-			
 			<!-- Begin page content -->
 			<div class="container">
 				<div class="page-header">
 					<h1>Consulta de env&iacute;os</h1>
 				</div>
-				<p class="lead">S&oacute;lo ingres&aacute; el n&uacute;mero de env&iacute;o y listo!</p>
-	
+				<p class="lead">Sólo ingresá el número de envío y listo!</p>
 				<p>
-					Us&aacute; <a href="#">Correo Argentino</a> (por ahora).
+					Eleg&iacute; <a href="#">el servicio postal del paquete</a>.
 				</p>
-	
 				<form id="wonDecadeForm" onsubmit="return doTheDecade($('#decadeQueryValue').val());">
 					<fieldset>
 						<div class="row">
 							<div class="col-lg-12">
+					          <div class="input-group">
+					            <div class="input-group-btn">
+					              <button id="postalMailChosen" type="button" class="btn btn-default" tabindex="-1"></button>
+					              <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+					                <span class="caret"></span>
+					                <span class="sr-only">Toggle Dropdown</span>
+					              </button>
+					              <ul class="dropdown-menu postalMail-list" role="menu">
+					                <li><a href="#" class="mail-brand" data-postal="CA">Correo Argentino</a></li>
+					                <li><a href="#" class="mail-brand" data-postal="OCA">OCA</a></li>
+					              </ul>
+					            </div>
+									<input type="text" class="form-control"	id="decadeQueryValue" 
+										   placeholder="Ej.: RD654985313AR" autocomplete="off" autofocus="autofocus">					          </div><!-- /.input-group -->
+					        </div>
+							<div class="col-lg-12">
 								<div class="form-group">
-									<input  type="text" class="form-control"	id="decadeQueryValue" 
-											placeholder="Ej.: RD654985313AR" autocomplete="off" autofocus="autofocus">
+
 								</div>
 								<!-- /input-group -->
 							</div>
@@ -110,6 +122,17 @@
 		<script type="text/javascript">
 		        
 			 $(function(){
+				$(".mail-brand").on("click",function(){
+					$("#postalMailChosen").html($(this).html());
+					setPostalMail($(this).attr("data-postal"));
+				});
+
+				if (!actualTracking){
+					var element = $('.postalMail-list').children().children().first();
+					$("#postalMailChosen").html(element.html());
+					setPostalMail(element.attr("data-postal"));
+				}
+
 				swingOffDecade();
 				$("#decadeQueryValue").focus();
 				$('#usedTrackingList').affix({

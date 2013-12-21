@@ -21,18 +21,34 @@
              return $response;
         }
  
+        function getApi($correo, $id = null){
+            if ($correo == "CA"){
+                $api = "http://www.correoargentino.com.ar/sites/all/modules/custom/ca_forms/api/ajax.php";
+            } else {
+            	if ($correo == "OCA") {
+                	$api = "http://webservice.oca.com.ar/oep_tracking/Oep_Track.asmx/Tracking_Pieza?CUIT=&NroDocumentoCliente=&Pieza=";
+            	}
+            }
+            return $api;
+        }
+
         if (!empty($_GET)){
-                $id = $_GET['id'];
+
+            $correo = $_GET['correo'];
+            $id = $_GET['id'];
+            $api = getApi($correo, $id);
+            
+            if ($correo == "CA") {
                 $producto = $_GET['producto'];
                 $pais = $_GET['pais'];
-                $action = $_GET['action']; // ondnc o oidn
-                $api = "http://www.correoargentino.com.ar/sites/all/modules/custom/ca_forms/api/ajax.php";
- 
+                $action = $_GET['action']; // ondnc o oidn                
                 $dataArray = array('id' => $id, 'producto' => $producto, 'pais' => $pais, 'action' => $action);
                 $data = http_build_query($dataArray);
- 
                 $response =  doPostRequest($api, $data);
-                
-                echo $response;
+            } elseif ($correo == "oca") {
+                $response = file_get_contents($api.$id);    
+            }
+            echo $response;
+            
         }
 ?>

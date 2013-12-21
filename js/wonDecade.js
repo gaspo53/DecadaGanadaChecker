@@ -1,6 +1,11 @@
 var actualTracking;
+var postalMail;
 
-function obtainQuery(trackingNumber) {
+function setPostalMail(mail){
+	postalMail = mail;
+}
+
+function obtainQueryCA(trackingNumber) {
 
 	var producto = "";
 	var pais = "AR";
@@ -38,10 +43,27 @@ function obtainQuery(trackingNumber) {
 		id : trackingNumber,
 		action : action,
 		producto: producto,
-		pais : pais
+		pais : pais,
+		correo: postalMail
 	};
 
 	return query;
+}
+
+function obtainQueryoCA(trackingNumber) {
+
+	var query = {
+			id : trackingNumber,
+			action : action,
+			correo: postalMail
+		};
+	
+	return query;
+}
+
+function obtainQuery(trackingNumber) {
+
+	return eval("obtainQuery"+postalMail+"('"+trackingNumber+"')");
 }
 
 function parseResult(result) {
