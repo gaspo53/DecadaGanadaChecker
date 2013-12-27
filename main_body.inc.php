@@ -147,14 +147,25 @@
 				buildTrackingAffixList();
 
 				var idParam;
+				var typeParam;
 				<?php if ( isset($_GET['id']) && (strlen($_GET['id']) >= 10) ){ ?>
 					idParam = "<?php echo $_GET['id']; ?>";
+					typeParam = "<?php if (isset($_GET['type'])){
+											echo $_GET['type'];
+										}else{
+											echo "";
+										} 
+								  ?>";
 				<?php }?>
 
 				if ($.trim(idParam) != ""){
 					$("#decadeQueryValue").val(idParam);
-					$("#wonDecadeForm").submit();
+					if ($.trim(typeParam) != ""){
+						setPostalMail(typeParam);
+					}
 				}
+
+				$("#wonDecadeForm").submit();
 
 				$('.save-item-label').on("click", function(){
 					$("#descripcionModalForm").submit();

@@ -3,6 +3,8 @@ var postalMail;
 
 function setPostalMail(mail){
 	postalMail = mail;
+	var postalCaption = $( "a[data-postal='"+mail+"']" ).html();
+	$("#postalMailChosen").html(postalCaption);
 }
 
 function obtainQueryCA(trackingNumber) {
@@ -44,18 +46,17 @@ function obtainQueryCA(trackingNumber) {
 		action : action,
 		producto: producto,
 		pais : pais,
-		correo: postalMail
+		correo: "CA"
 	};
 
 	return query;
 }
 
-function obtainQueryoCA(trackingNumber) {
+function obtainQueryOCA(trackingNumber) {
 
 	var query = {
 			id : trackingNumber,
-			action : action,
-			correo: postalMail
+			correo: "OCA"
 		};
 	
 	return query;
@@ -127,60 +128,80 @@ function parseTrackingNumber(trackingNumber){
 	return trackingNumber;
 }
 
+
+//MAIN FUNCTION!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 function doTheDecade(trackingNumber) {
 	
 	trackingNumber = parseTrackingNumber(trackingNumber);
 	
 	if (trackingNumber != ""){
-		var query = obtainQuery(trackingNumber);
 		
-		history.pushState({}, "Intentando hacer trabajar al Correo...", "?id="+trackingNumber);
-
-		$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
-
-		saveTrackingToLocalStorate(trackingNumber);
-		swingOnDecade();
-		
-		$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
-		
-		var label = getTrackingLabel(trackingNumber);
-		
-		//Limpio el modal
-		$("#descripcion").val('');
-		
-		$("#decadeResults").html('');
-		
-		$.get("action/caQuery.php", query)
-				.done(function(data) {
-					data = parseResult(data);
-					if (!dataValid(data)){
-						swingCfk();
-						//Si tiene label, es que ya se ha usado
-						if (!label){
-						    removeSavedTracking(trackingNumber);
-						}
-					}else{
-						try {
-							infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
-							$("#decadeResults").append(data);
-							actualTracking = trackingNumber;
-							finishUpResult(label);
-						} catch (e) {
+		if (getSavedPostalService(trackingNumber)){
+			var query = obtainQuery(trackingNumber);
+			
+			history.pushState({}, "Intentando hacer trabajar al Correo...", "?id="+trackingNumber+"&type="+postalMail);
+	
+			$('.ganar-decada-affix-li').each(function(){$(this).removeClass("active");});
+	
+			saveTrackingToLocalStorage(trackingNumber);
+			swingOnDecade();
+			
+			$('.ganar-decada').closest('fieldset').attr('disabled', 'true');
+			
+			var label = getTrackingLabel(trackingNumber);
+			
+			//Limpio el modal
+			$("#descripcion").val('');
+			
+			$("#decadeResults").html('');
+			
+			$.get("action/caQuery.php", query)
+					.done(function(data) {
+						data = parseResult(data);
+						if (!dataValid(data)){
 							swingCfk();
+							//Si tiene label, es que ya se ha usado. Puede estar fallando el correo; no se borra.
+							if (!label){
+							    removeSavedTracking(trackingNumber);
+							}
+						}else{
+							try {
+								infoAlert("Ac&aacute; ten&eacute;s el resultado de tus env&iacute;os");
+								$("#decadeResults").append(data);
+								actualTracking = trackingNumber;
+								finishUpResult(label);
+							} catch (e) {
+								swingCfk();
+							}
 						}
-					}
-				})
-				.fail(function(data) {
-					swingCfk();
-                    //Si tiene label, es que ya se ha usado
-                    if (!label){
-                        removeSavedTracking(trackingNumber);
-                    }				})
-				.always(function(data) {
-					swingOffDecade();
-					$('.ganar-decada').closest('fieldset').removeAttr('disabled');
-					buildTrackingAffixList();
-				});
+					})
+					.fail(function(data) {
+						swingCfk();
+	                    //Si tiene label, es que ya se ha usado
+	                    if (!label){
+	                        removeSavedTracking(trackingNumber);
+	                    }				})
+					.always(function(data) {
+						swingOffDecade();
+						$('.ganar-decada').closest('fieldset').removeAttr('disabled');
+						buildTrackingAffixList();
+					});
+		//NO HAY TIPO GUARDADO; PEDIRLO
+		}else{
+			bootbox.dialog({
+				  message: "No sabemos a quién preguntarle",
+				  title: "Qué correo es?",
+				  buttons: {
+				    success: {
+				      label: "Elegir correo",
+				      className: "btn-info",
+				      callback: function() {
+				        //
+				      }
+				    }
+				  }
+			});
+		}
 	}
 	return false;
 }
@@ -234,7 +255,7 @@ function buildTrackingAffixList(){
 
 	$('.ganar-decada-affix').on("click",function(){
 		var text = $(this).clone().children().remove().end().text();
-
+		setPostalMail($(this).attr("postalMail"));
 		$("#decadeQueryValue").val(text);
 		$("#wonDecadeForm").submit();
 	});
@@ -277,6 +298,7 @@ function addTrackingToAffixList(trackingNumber, active){
 		var activeClass="";
 		
 		item.attr('href','#');
+		item.attr('postalMail', getSavedPostalService(trackingNumber));
 		item.addClass('ganar-decada ganar-decada-affix');
 		item.html(trackingNumber);
 		
@@ -313,28 +335,60 @@ function trackingExists(trackingNumber){
 	
 }
 
-function saveTrackingToLocalStorate(trackingNumber){
+function saveTrackingToLocalStorage(trackingNumber){
 	
 	var actualTrackings = getSavedTrackings();
 	if (actualTrackings){
 		if (!trackingExists(trackingNumber)){
 			if (Modernizr.localstorage) {
 				localStorage["dgTrackingNumbers"] = actualTrackings+","+trackingNumber;
+				localStorage[trackingNumber+"_TYPE"] = postalMail;
 			}else{
 				document.cookie = "dgTrackingNumbers="+getCookieData("dgTrackingNumbers")+","+trackingNumber;
+				document.cookie = trackingNumber+"_TYPE="+postalMail;			
 			}
 		}
 	}else{
 		if (Modernizr.localstorage){
 			localStorage["dgTrackingNumbers"] = ","+trackingNumber;
+			localStorage[trackingNumber+"_TYPE"] = postalMail;
 		}else{
 			document.cookie = "dgTrackingNumbers="+","+trackingNumber;
+			document.cookie = trackingNumber+"_TYPE="+postalMail;			
 		}
 		
 	}
+	
+	updatePostalService(trackingNumber);
 	addTrackingToAffixList(trackingNumber,true);
 	
 	return true;
+}
+
+function getSavedPostalService(trackingNumber){
+	if (Modernizr.localstorage) {
+		if (localStorage[trackingNumber+"_TYPE"])
+			postalMail = localStorage[trackingNumber+"_TYPE"];
+	}else{
+		if (getCookieData(trackingNumber+"_TYPE"))
+			postalMail = getCookieData(trackingNumber+"_TYPE");
+	}
+
+	setPostalMail(postalMail);
+
+	return postalMail;
+}
+
+
+function updatePostalService(trackingNumber){
+	try{
+		if (Modernizr.localstorage) {
+			localStorage[trackingNumber+"_TYPE"] = postalMail;
+		}else{
+			document.cookie = trackingNumber+"_TYPE="+postalMail;
+		}
+	}
+	catch(e){}
 }
 
 function getSavedTrackings(){
@@ -352,10 +406,12 @@ function removeSavedTracking(trackingNumber){
 	if (Modernizr.localstorage) {
 		localStorage["dgTrackingNumbers"] = actualTrackings.replace(","+trackingNumber, ""); 
 		localStorage.removeItem(trackingNumber);
+		localStorage.removeItem(trackingNumber+"_TYPE");
 	}else{
 		//Cookie
 		document.cookie = "dgTrackingNumbers=" + getCookieData("dgTrackingNumbers").replace(","+trackingNumber, ""); 
 		delete_cookie(trackingNumber);
+		delete_cookie(trackingNumber+"_TYPE");
 	}
 	
 	if (getSavedTrackingsAsArray().length == 0){
