@@ -10,7 +10,7 @@ function setPostalMail(mail){
 function obtainQueryCA(trackingNumber) {
 
 	var producto = "";
-	var pais = "AR";
+	var pais =  trackingNumber.substring(trackingNumber.length-2,trackingNumber.length);
 	var action = "oidn";
 	var startString = trackingNumber.substring(0, 2).toUpperCase();
 
@@ -21,24 +21,25 @@ function obtainQueryCA(trackingNumber) {
 						  "TL", "UP");
 	var ondi = new Array("EE", "CX", "RR", "XP", "XX", "XR");
 
-	if ($.inArray(startString, ondnp) >= 0) {
-		action = "ondnp";
-	} else {
-		if ($.inArray(startString, ondnc) >= 0) {
-			action = "ondnc";
-			producto = trackingNumber.substring(0,2);
-			pais =  trackingNumber.substring(trackingNumber.length-2,trackingNumber.length);
-			trackingNumber = trackingNumber.substring(2, trackingNumber.length-2);
-		}else { 
-			if ($.inArray(startString, ondi) >= 0) {
-				action = "ondi";
-			}else{ 
-				//Si es todo numeros
-				if (/^\d+$/.test(trackingNumber)) {
-					// FIXME ACA puede ser onpa y ondng
-				}
-			}
-		}
+	if (pais == "AR"){
+    	if ($.inArray(startString, ondnp) >= 0) {
+    		action = "ondnp";
+    	} else {
+    		if ($.inArray(startString, ondnc) >= 0) {
+    			action = "ondnc";
+    			producto = trackingNumber.substring(0,2);
+    			trackingNumber = trackingNumber.substring(2, trackingNumber.length-2);
+    		}else { 
+    			if ($.inArray(startString, ondi) >= 0) {
+    				action = "ondi";
+    			}else{ 
+    				//Si es todo numeros
+    				if (/^\d+$/.test(trackingNumber)) {
+    					// FIXME ACA puede ser onpa y ondng
+    				}
+    			}
+    		}
+    	}
 	}
 	
 	var query = {
