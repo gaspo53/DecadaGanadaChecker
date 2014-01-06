@@ -190,8 +190,8 @@ function doTheDecade(trackingNumber) {
 		//NO HAY TIPO GUARDADO; PEDIRLO
 		}else{
 			bootbox.dialog({
-				  message: "No sabemos a quién preguntarle",
 				  title: "Qué correo es?",
+				  message: "No sabemos a quién preguntarle",
 				  buttons: {
 				    success: {
 				      label: "Elegir correo",
@@ -367,6 +367,9 @@ function saveTrackingToLocalStorage(trackingNumber){
 }
 
 function getSavedPostalService(trackingNumber){
+
+	//postalMail es la variable GLOBAL
+	
 	if (Modernizr.localstorage) {
 		if (localStorage[trackingNumber+"_TYPE"])
 			postalMail = localStorage[trackingNumber+"_TYPE"];
