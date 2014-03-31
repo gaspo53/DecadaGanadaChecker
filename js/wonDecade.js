@@ -24,6 +24,8 @@ function obtainQueryCA(trackingNumber) {
 	if (pais == "AR"){
     	if ($.inArray(startString, ondnp) >= 0) {
     		action = "ondnp";
+			producto = trackingNumber.substring(0,2);
+			trackingNumber = trackingNumber.substring(2, trackingNumber.length-2);
     	} else {
     		if ($.inArray(startString, ondnc) >= 0) {
     			action = "ondnc";
